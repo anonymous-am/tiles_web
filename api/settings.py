@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import environ
+import dj_database_url
 
 # Initialize environment variables
 env = environ.Env(
@@ -25,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Read the .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-
+ENVIRONMENT = env('ENVIRONMENT', default='production')
 
 # Secret key and other credentials
 SECRET_KEY = env('SECRET_KEY')
@@ -33,7 +34,7 @@ SMTP_USERNAME = env('SMTP_USERNAME')
 SMTP_PASSWORD = env('SMTP_PASSWORD')
 FROM_EMAIL = env('FROM_EMAIL')
 
-print("Loaded SECRET_KEY:", env('SMTP_USERNAME'))
+# print("Loaded SECRET_KEY:", env('SMTP_USERNAME'))
 
 
 
@@ -107,6 +108,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+if ENVIRONMENT == 'production':
+    DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
+
+
 
 # DATABASES = {
 #     'default': {
