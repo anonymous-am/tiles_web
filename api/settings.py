@@ -109,33 +109,12 @@ DATABASES = {
     }
 }
 
-if ENVIRONMENT == 'production':
+POSTGRES_DB = True
+if ENVIRONMENT == 'production' and POSTGRES_DB:
     DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': env('NAME'),            # The name of your PostgreSQL database
-#         'USER': env('USER'),          # Your PostgreSQL username
-#         'PASSWORD': env('PASSWORD'),       # Your PostgreSQL password
-#         'HOST': env('HOST'),               # Set to your database host (localhost if running locally)
-#         'PORT': env('PORT'),                    # Default port for PostgreSQL
-#     }
-# }
-# SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')  # Get from environment variables
-# DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Convert 'True' or 'False' string to boolean
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('DB_NAME'),
-#         'USER': os.getenv('DB_USER'),
-#         'PASSWORD': os.getenv('DB_PASSWORD'),
-#         'HOST': os.getenv('DB_HOST'),
-#         'PORT': os.getenv('DB_PORT'),
-#     }
-# }
 ALLOWED_HOSTS = ['*']
 
 
